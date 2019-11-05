@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt br">
+<head>
+    <meta charset="UTF-8">
+    <title>Configurar Job</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="job.js"></script>
+
+
+</head>
+<body style="margin-bottom: 64px">
+
+<header>
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="img/headshot.png" class="d-inline-block align-top" alt="">
+        <img src="img/title.png" width="139" height="34" class="d-inline-block align-top" alt="">
+    </nav>
+</header>
+<section class="design-process-section" id="process-tab">
+    <ul class="nav process-model more-icon-preocess" role="tablist">
+        <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab"
+                                                  data-toggle="tab"><i aria-hidden="true"></i>
+            <p>General</p>
+        </a></li>
+        <li role="presentation"><a href="#repository" aria-controls="repository" role="tab" data-toggle="tab"><i
+                aria-hidden="true"></i>
+            <p>Repository</p>
+        </a></li>
+        <li role="presentation"><a href="#quality" aria-controls="quality" role="tab"
+                                   data-toggle="tab"><i aria-hidden="true"></i>
+            <p>Quality</p>
+        </a></li>
+        <li role="presentation"><a href="#test" aria-controls="test" role="tab" data-toggle="tab"><i
+                aria-hidden="true"></i>
+            <p>Test</p>
+        </a></li>
+        <li role="presentation"><a href="#package" aria-controls="package" role="tab" data-toggle="tab"><i
+                aria-hidden="true"></i>
+            <p>Package</p>
+        </a></li>
+        <li role="presentation"><a href="#deploy" aria-controls="deploy" role="tab" data-toggle="tab"><i
+                aria-hidden="true"></i>
+            <p>Deploy</p>
+        </a></li>
+    </ul>
+</section>
+<section>
+    <div class="container">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="general">
+                <div class="design-process-content">
+                    <div class="batata">
+
+                    <label> <input type="checkbox" id="abort-stuck" onchange="showById('AbortStuck')"> Abortar em caso de travamento</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+
+                    <div class="panel" id="AbortStuck" style="display: none;">
+                        <div class="input-group mb-3 offset-md-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Time-out strategy</label>
+                            </div>
+                            <select id="AbortType" class="custom-select" id="inputGroupSelect01" onchange="showAbort()">
+                                <option value="Absolute">Absolute</option>
+                                <option value="Deadline">Deadline</option>
+                                <option value="Elastic">Elastic</option>
+                                <option value="LikelyStuck">Likely stuck</option>
+                                <option value="NoActivity">No activity</option>
+                            </select>
+                            <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                            </button>
+                        </div>
+
+                        <label class="offset-md-3" for="time-out-input">Time-out variable</label>
+                        <div class="input-group mb-3 offset-md-3">
+                            <input type="text" id="time-out" class="form-control" id="time-out-input"
+                                   aria-describedby="time-out-input">
+                            <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                            </button>
+                        </div>
+
+                        <div id="Absolute">
+                            <label class="offset-md-3">Timeout minutes</label>
+                            <div class="input-group mb-3 offset-md-3">
+                                <input type="number" id="time-out-minutes" name="quantity2" class="form-control" min="0" placeholder="0">
+                                <button tabindex="0" data-placement="top" class="batata2"
+                                        role="button"
+                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel" id="Deadline" style="display: none;">
+                            <label class="offset-md-3">Deadline time</label>
+                            <div class="input-group mb-3 offset-md-3">
+                                <input type="number" id="deadline" name="quantity2" class="form-control" min="0" placeholder="0">
+                                <button tabindex="0" data-placement="top" class="batata2"
+                                        role="button"
+                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                </button>
+                            </div>
+                            <label class="offset-md-3">Deadline tolerance in minutes</label>
+                            <div class="input-group mb-3 offset-md-3">
+                                <input type="number" id="deadtime-tolerance" name="quantity2" class="form-control" min="0" placeholder="0">
+                                <button tabindex="0" data-placement="top" class="batata2"
+                                        role="button"
+                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel" id="Elastic" style="display: none;">
+                            <div class="input-group mb-3 offset-md-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Timeout as a percentage of
+                                        recent non-failing builds</label>
+                                </div>
+                                <select class="custom-select" id="percentage" onchange="showAbort()">
+                                    <option value="150">150%</option>
+                                    <option value="200">200%</option>
+                                    <option value="250">250%</option>
+                                    <option value="300">300%</option>
+                                    <option value="350">350%</option>
+                                    <option value="400">400%</option>
+                                </select>
+                                <button tabindex="0" data-placement="top" class="batata2"
+                                        role="button"
+                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                </button>
+                            </div>
+
+                            <label class="offset-md-3" for="time-out-input">Number of Builds</label>
+                            <div class="input-group mb-3 offset-md-3">
+                                <input type="number" id="abort-number-builds" class="form-control" id="number-of-builds"
+                                       aria-describedby="number-of-builds" min="0" placeholder="0">
+                                <button tabindex="0" data-placement="top" class="batata2"
+                                        role="button"
+                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                </button>
+
+                            </div>
+                            <label class="offset-md-3" for="time-out-input">Timeout minutes</label>
+                            <div class="input-group mb-3 offset-md-3">
+                                <input name="quantity2" id="abort-timeout" type="number" class="form-control" id="timeout-minutes"
+                                       aria-describedby="number-of-builds" min="0" placeholder="0">
+                                <button tabindex="0" data-placement="top" class="batata2"
+                                        role="button"
+                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                </button>
+                            </div>
+
+                            <input type="checkbox" id="field4" name="field4">
+                            <label for="field4">Timeout minutes as the shortest timeout</label>
+                        </div>
+
+                        <div class="panel" id="NoActivity" style="display: none;">
+                            <label class="offset-md-3" for="time-out-input">Timeout seconds</label>
+                            <div class="input-group mb-3 offset-md-3">
+                                <input name="quantity2" id="no-activity-seconds" type="number" class="form-control" id="timeout-seconds"
+                                       aria-describedby="number-of-builds" min="0" placeholder="0">
+                                <button tabindex="0" data-placement="top" class="batata2"
+                                        role="button"
+                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="batata">
+                        <label><input type="checkbox" id="add-timestamp">
+                    Adicionar horario de execução na saida do console</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+
+                    <div class="batata">
+                        <label><input type="checkbox" id="inspect-gradle-build">
+                    Inspect build log for published Gradle build scans</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+                    <div class="batata">
+
+                    <label><input type="checkbox" id="discart-old-builds" onchange="showById('DescartOldBuilds')"> Descartar builds antigas</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+                    <div class="panel" id="DescartOldBuilds" style="display: none;">
+
+                        <label class="offset-md-3">Dias para manter os builds</label>
+                        <div class="input-group mb-3 offset-md-3">
+                            <input name="quantity2" id="discart-days" type="number" class="form-control"
+                                   aria-describedby="number-of-builds" min="0" placeholder="0">
+                            <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                            </button>
+                        </div>
+                        <label class="offset-md-3">Máximo de builds para manter</label>
+                        <div class="input-group mb-3 offset-md-3">
+                            <input name="quantity2" id="discart-max" type="number" class="form-control"
+                                   aria-describedby="number-of-builds" min="0" placeholder="0">
+                            <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="batata">
+                        <label><input type="checkbox" id="git-hub-project" onchange="showById('GitHubProject')">
+                    GitHub project</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+                    <div class="panel" id="GitHubProject" style="display: none;">
+                        <label class="offset-md-3">Project URL</label>
+                        <div class="input-group mb-3 offset-md-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">https://github.com/users/</span>
+                            </div>
+                            <input type="text" id="git-hub-project-url" class="form-control" aria-describedby="basic-addon3">
+                            <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="batata">
+                        <label><input type="checkbox" id="throttle-builds" onchange="showById('ThrottleBuilds')">
+                    Throttle builds</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+                    <div class="panel" id="ThrottleBuilds" style="display: none;">
+                        <label class="offset-md-3">Number of builds</label>
+                        <div class="input-group mb-3 offset-md-3">
+						<input type="text" id="number-builds" class="form-control" aria-label="Text input with dropdown button">
+						<button tabindex="0" data-placement="top" class="batata2" role="button"
+								data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+								data-content="And here's some amazing content. It's very engaging. Right?">?
+						</button>
+						</div>
+						<label class="offset-md-3">Time Period</label>
+                        <div class="input-group mb-3 offset-md-3">
+							<select name="selectDuration" id="time-period" class="btn btn-outline-secondary dropdown-toggle"
+									value="">
+								<option value="second">Second</option>
+								<option value="minute">Minute</option>
+								<option value="hour">Hour</option>
+								<option value="day">Day</option>
+								<option value="week">Week</option>
+								<option value="month">Month</option>
+								<option value="year">Year</option>
+							</select>
+                        </div>
+                    </div>
+
+
+                    <div class="batata">
+                        <label><input type="checkbox" id="disable-builds">
+                    Desabilitar builds</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+
+
+                    <div class="batata">
+                        <label><input type="checkbox" id="parallel-builds">
+                    Execute os builds em paralelo se necessário</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+
+
+
+                    <div class="batata">
+                        <label><input type="checkbox" id="number-tries-chk" onchange="showById('CloneAttempts')">
+                    Número de tentativas para clonar o código</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+                    <div class="panel" id="CloneAttempts" style="display: none;">
+                        <label class="offset-md-3">Número de tentativas</label>
+                        <div class="input-group mb-3 offset-md-3">
+                            <input type="number" id="number-tries" name="quantity2" class="form-control" min="1" placeholder="1">
+                            <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="batata">
+
+                        <label><input type="checkbox" id="keep-logs">
+                    Manter os logs de construção das dependências</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+                    </div>
+
+                    <a href="#repository" aria-controls="repository" role="tab"
+                    data-toggle="tab" class="batata4 btn btn-primary float-right batata4">Avançar</a>
+
+
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="repository">
+                <div class="design-process-content">
+                        <label><input type="radio" id="reposiroty-type-git" name="reposirotyType" value="git" onchange="showGitOpt()" checked>
+                            GIT</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+
+                    <label><input type="radio" id="reposiroty-type-svn" name="reposirotyType" value="svn" onchange="showGitOpt()"> SVN</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+
+                    <div>
+                    <label class="offset-md-3">Login</label>
+                    <div class="input-group mb-3 offset-md-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                        </div>
+                        <input type="text" id="username" class="form-control" placeholder="Username" aria-label="Username"
+                               aria-describedby="basic-addon1">
+                        <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                        </button>
+                    </div>
+                    <label class="offset-md-3">Senha</label>
+                    <div class="input-group mb-3 offset-md-3">
+                        <input type="password" id="password" class="form-control" aria-label="password"
+                               aria-describedby="basic-addon1">
+                        <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                        </button>
+                    </div>
+                    <label class="offset-md-3">URL</label>
+                    <div class="input-group mb-3 offset-md-3">
+                        <div class="input-group-prepend">
+                        </div>
+                        <input type="text" id="reposiroty-address" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                        <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                        </button>
+                    </div>
+
+                    <label class="offset-md-3" for="basic-url"> Branch</label>
+                    <div class="input-group mb-3 offset-md-3">
+                        <input type="text" id="reposiroty-branch" class="form-control" aria-describedby="basic-addon3">
+                        <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                        </button>
+                    </div>
+
+
+                    <div class="panel" id="GitOpt">
+                        <div class="input-group mb-3 offset-md-3">
+
+                        <label> <input type="checkbox" id="push-commit"> Dispare builds remotamente quando commits forem executados</label>
+                        <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                        </button>
+                    </div>
+
+                        <label class="offset-md-3" for="basic-url"> Autenticação</label>
+                        <div class="input-group mb-3 offset-md-3">
+                            <input type="text" id="reposiroty-authentication" class="form-control" aria-describedby="basic-addon3">
+                            <button tabindex="0" data-placement="top" class="batata2" role="button"
+                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-content="Use a seguinte URL para iniciar um build remoto:
+                            JENKINS_URL/job/job/build?token=TOKEN_NAME ou /buildWithParameters?token=TOKEN_NAME
+                            Opcionalmente anexe &cause=Cause+Text para fornecer o texto que será incluído no build
+                            gravado">?
+                            </button>
+                        </div>
+
+
+                        <div class="input-group mb-3 offset-md-3">
+                        <label><input type="checkbox" id="push-commit-git-hub"> GitHub hook dispara a build automaticamente após pushes</label>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div>
+                    <a href="#general" aria-controls="general" role="tab"
+                       data-toggle="tab" class="batata4 btn btn-primary float-left">Voltar</a>
+                    <a href="#quality" aria-controls="quality" role="tab"
+                       data-toggle="tab" class="batata4 btn btn-primary float-right">Avançar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="quality">
+                <div class="design-process-content">
+
+                    <label> <input type="checkbox" id="chk-quality" onchange="showById('qualityScript')"> Executar Quality Check</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+
+
+                    <div class="panel  mb-3 offset-md-3" id="qualityScript" style="display: none;">
+                        Comando de execução:
+                        <textarea id="quality-config" class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                    <div>
+                    <a href="#repository" aria-controls="repository" role="tab"
+                       data-toggle="tab" class="batata4 btn btn-primary float-left">Voltar</a>
+                    <a href="#test" aria-controls="test" role="tab"
+                       data-toggle="tab" class="batata4 btn btn-primary float-right">Avançar</a>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="test">
+                <div class="design-process-content">
+
+                    <label><input type="checkbox" id="chk-test" onchange="showById('testScript')"> Executar Testes</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+
+
+                    <div class="panel  mb-3 offset-md-3" id="testScript" style="display: none;">
+                        Comando de execução:
+                        <textarea id="test-config" class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                    <div>
+                        <a href="#quality" aria-controls="quality" role="tab"
+                           data-toggle="tab" class="batata4 btn btn-primary float-left">Voltar</a>
+                        <a href="#package" aria-controls="package" role="tab"
+                           data-toggle="tab" class="batata4 btn btn-primary float-right">Avançar</a>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="package">
+                <div class="design-process-content">
+
+                    <label><input type="checkbox" id="chk-package" onchange="showById('packageScript')"> Executar Package</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+
+
+                    <div class="panel mb-3 offset-md-3" id="packageScript" style="display: none;">
+                        Comando de execução:
+                        <textarea id="package-config" class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                    <div>
+                        <a href="#test" aria-controls="test" role="tab"
+                           data-toggle="tab" class="batata4 btn btn-primary float-left">Voltar</a>
+                        <a href="#deploy" aria-controls="deploy" role="tab"
+                           data-toggle="tab" class="batata4 btn btn-primary float-right">Avançar</a>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="deploy">
+                <div class="design-process-content">
+
+
+                    <label> <input type="checkbox" id="chk-deploy" onchange="showById('deployScript')"> Executar Build</label>
+                    <button tabindex="0" data-placement="top" class="batata2" role="button"
+                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                    </button>
+
+
+                    <div class="panel mb-3 offset-md-3" id="deployScript" style="display: none;">
+                        Comando de execução:
+                        <textarea id="deploy-config" class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                    <div>
+                        <a href="#package" aria-controls="package" role="tab"
+                           data-toggle="tab" class="batata4 btn btn-primary float-left">Voltar</a>
+                        <button id="gerar-btn" value="Gerar JenkinsFile" type="button" class="btn btn-primary float-right">
+                        Finalizar
+                    </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+</body>
+<script src="js/index.js"></script>
+</html>
