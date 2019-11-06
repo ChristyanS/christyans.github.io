@@ -64,8 +64,8 @@
 
                     <label> <input type="checkbox" id="abort-stuck" onchange="showById('AbortStuck')"> Abortar em caso de travamento</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Você pode selecionar uma forma de abortar a execução caso ela trave">?
                     </button>
                     </div>
 
@@ -73,7 +73,7 @@
                     <div class="panel" id="AbortStuck" style="display: none;">
                         <div class="input-group mb-3 offset-md-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01">Time-out strategy</label>
+                                <label class="input-group-text" for="inputGroupSelect01">Estratégia de time-out</label>
                             </div>
                             <select id="AbortType" class="custom-select" id="inputGroupSelect01" onchange="showAbort()">
                                 <option value="Absolute">Absolute</option>
@@ -83,18 +83,24 @@
                                 <option value="NoActivity">No activity</option>
                             </select>
                             <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                                    data-toggle="popover" data-trigger="focus" title="Dica"
+                                    data-content="
+Absolute: aborta o build baseado em um time-out fixo.
+Deadline: aborta o build baseado em um prazo especifico HH:MM:SS or HH:MM (Formato 24 horas)
+Elastic: Defina o tempo de espera antes de eliminar a construção como uma porcentagem da média da duração das últimas n construções bem-sucedidas.
+Likely stuck: Aborta quando o build demora mais que os anteriores
+No Activity: Tempo limite quando segundos especificados se passaram desde a última saída do log.
+">?
                             </button>
                         </div>
 
-                        <label class="offset-md-3" for="time-out-input">Time-out variable</label>
+                        <label class="offset-md-3" for="time-out-input">Variável de time-out</label>
                         <div class="input-group mb-3 offset-md-3">
                             <input type="text" id="time-out" class="form-control" id="time-out-input"
                                    aria-describedby="time-out-input">
                             <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                                    data-toggle="popover" data-trigger="focus" title="Dica"
+                                    data-content="Definir uma variável de ambiente de tempo limite de build">?
                             </button>
                         </div>
 
@@ -104,8 +110,8 @@
                                 <input type="number" id="time-out-minutes" name="quantity2" class="form-control" min="0" placeholder="0">
                                 <button tabindex="0" data-placement="top" class="batata2"
                                         role="button"
-                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                        data-toggle="popover" data-trigger="focus" title="Dica"
+                                        data-content="Se configurado, e se uma compilação não for concluída pelo período de tempo especificado (em minutos; pelo menos 3), a compilação será encerrada automaticamente e marcada como abortada. Isso é útil se você experimentou ciclos infinitos em seu teste, por exemplo.">?
                                 </button>
                             </div>
                         </div>
@@ -113,20 +119,21 @@
                         <div class="panel" id="Deadline" style="display: none;">
                             <label class="offset-md-3">Deadline time</label>
                             <div class="input-group mb-3 offset-md-3">
-                                <input type="number" id="deadline" name="quantity2" class="form-control" min="0" placeholder="0">
+                                <input id="deadline" name="quantity2" class="form-control" min="0" placeholder="HH:mm">
                                 <button tabindex="0" data-placement="top" class="batata2"
                                         role="button"
-                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                        data-toggle="popover" data-trigger="focus" title="Dica"
+                                        data-content="Se configurado e se uma compilação não for concluída até o próximo prazo (especificado no formato de 24 horas como HH: MM: SS ou HH: MM), a compilação será finalizada automaticamente e marcada como indicado nas ações de tempo limite ('abortado' por padrão).
+                                Referências variáveis são permitidas para definir o prazo final.">?
                                 </button>
                             </div>
-                            <label class="offset-md-3">Deadline tolerance in minutes</label>
+                            <label class="offset-md-3">Deadline tolerância em minutos</label>
                             <div class="input-group mb-3 offset-md-3">
                                 <input type="number" id="deadtime-tolerance" name="quantity2" class="form-control" min="0" placeholder="0">
                                 <button tabindex="0" data-placement="top" class="batata2"
                                         role="button"
-                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                        data-toggle="popover" data-trigger="focus" title="Dica"
+                                        data-content="Período em minutos após o prazo final em que um trabalho deve ser abortado imediatamente. Por exemplo. se o prazo final for definido como '13:50', a tolerância for '5' minutos e o trabalho estiver programado para ser executado em '13:52', ele será imediatamente abortado. No entanto, se estiver programado para '13:56', o prazo do trabalho será definido para '13:50' do dia seguinte.">?
                                 </button>
                             </div>
                         </div>
@@ -134,8 +141,7 @@
                         <div class="panel" id="Elastic" style="display: none;">
                             <div class="input-group mb-3 offset-md-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Timeout as a percentage of
-                                        recent non-failing builds</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Timeout em porcentagem de builds que não falham</label>
                                 </div>
                                 <select class="custom-select" id="percentage" onchange="showAbort()">
                                     <option value="150">150%</option>
@@ -147,19 +153,19 @@
                                 </select>
                                 <button tabindex="0" data-placement="top" class="batata2"
                                         role="button"
-                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                        data-toggle="popover" data-trigger="focus" title="Dica"
+                                        data-content="Se a duração da compilação durar mais que essa porcentagem das três compilações sem falha mais recentes, a compilação será encerrada e marcada como abortada. Se não houver construções bem-sucedidas, o campo 'Minutos de tempo limite se não houver construções instáveis ou bem-sucedidas' será usado.">?
                                 </button>
                             </div>
 
-                            <label class="offset-md-3" for="time-out-input">Number of Builds</label>
+                            <label class="offset-md-3" for="time-out-input">Número de Builds</label>
                             <div class="input-group mb-3 offset-md-3">
                                 <input type="number" id="abort-number-builds" class="form-control" id="number-of-builds"
                                        aria-describedby="number-of-builds" min="0" placeholder="0">
                                 <button tabindex="0" data-placement="top" class="batata2"
                                         role="button"
-                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                        data-toggle="popover" data-trigger="focus" title="Dica"
+                                        data-content="Número de builds para considerar a duração média da computação">?
                                 </button>
 
                             </div>
@@ -169,8 +175,8 @@
                                        aria-describedby="number-of-builds" min="0" placeholder="0">
                                 <button tabindex="0" data-placement="top" class="batata2"
                                         role="button"
-                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                        data-toggle="popover" data-trigger="focus" title="Dica"
+                                        data-content="Tempo limite a ser usado se não houver build anteriores bem-sucedidas ou instáveis">?
                                 </button>
                             </div>
 
@@ -185,8 +191,8 @@
                                        aria-describedby="number-of-builds" min="0" placeholder="0">
                                 <button tabindex="0" data-placement="top" class="batata2"
                                         role="button"
-                                        data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                        data-content="And here's some amazing content. It's very engaging. Right?">?
+                                        data-toggle="popover" data-trigger="focus" title="Dica"
+                                        data-content="Segundos para detectar o tempo limite desde a última saída do log. Isso é útil para interromper um build se não houver atividade por muito tempo. Cuidado com o atraso na saída do log para buffer.">?
                                 </button>
                             </div>
                         </div>
@@ -197,27 +203,23 @@
                         <label><input type="checkbox" id="add-timestamp">
                     Adicionar horario de execução na saida do console</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Registra o tempo de execução no formato de um timestamp">?
                     </button>
                     </div>
 
 
                     <div class="batata">
                         <label><input type="checkbox" id="inspect-gradle-build">
-                    Inspect build log for published Gradle build scans</label>
-                    <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
-                    </button>
+                            Inspecionar build log para verificar publicações de build Gradle</label>
                     </div>
 
                     <div class="batata">
 
                     <label><input type="checkbox" id="discart-old-builds" onchange="showById('DescartOldBuilds')"> Descartar builds antigas</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Gerencia o consumo de disco no Jenkins com o tempo que você gostaria de manter os registros das construções">?
                     </button>
                     </div>
 
@@ -228,8 +230,8 @@
                             <input name="quantity2" id="discart-days" type="number" class="form-control"
                                    aria-describedby="number-of-builds" min="0" placeholder="0">
                             <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                                    data-toggle="popover" data-trigger="focus" title="Dica"
+                                    data-content="Você pode fazer o Jenkins apagar um registro se ele atingir uma certa idade (Por exemplo, 7 dias de idade.)">?
                             </button>
                         </div>
                         <label class="offset-md-3">Máximo de builds para manter</label>
@@ -237,8 +239,8 @@
                             <input name="quantity2" id="discart-max" type="number" class="form-control"
                                    aria-describedby="number-of-builds" min="0" placeholder="0">
                             <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                                    data-toggle="popover" data-trigger="focus" title="Dica"
+                                    data-content="Você pode fazer o Jenkins assegurar que ele vai manter apenas até N registros de construção. Se uma nova construção for iniciada, o registro mais velho será simplesmente removido">?
                             </button>
                         </div>
                     </div>
@@ -248,8 +250,8 @@
                         <label><input type="checkbox" id="git-hub-project" onchange="showById('GitHubProject')">
                     GitHub project</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Plataforma de hospedagem de código-fonte com controle de versão usando o Git">?
                     </button>
                     </div>
 
@@ -257,12 +259,12 @@
                         <label class="offset-md-3">Project URL</label>
                         <div class="input-group mb-3 offset-md-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">https://github.com/users/</span>
                             </div>
                             <input type="text" id="git-hub-project-url" class="form-control" aria-describedby="basic-addon3">
                             <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                    data-content="And here's some amazing content. It's very engaging. Right?">?
+                                    data-toggle="popover" data-trigger="focus" title="Dica"
+                                    data-content="Digite o URL para o projeto hospedado no GitHub (sem a parte de tree / master ou tree / branch part).
+Por exemplo: https://github.com/rails/rails para o projeto Rails.">?
                             </button>
                         </div>
 
@@ -273,21 +275,22 @@
                         <label><input type="checkbox" id="throttle-builds" onchange="showById('ThrottleBuilds')">
                     Throttle builds</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Impõe um tempo mínimo entre compilações com base na taxa máxima desejada.
+Nota: isso não impõe uma taxa 'média', apenas analisa o tempo desde a última compilação.">?
                     </button>
                     </div>
 
                     <div class="panel" id="ThrottleBuilds" style="display: none;">
-                        <label class="offset-md-3">Number of builds</label>
+                        <label class="offset-md-3">Número de builds</label>
                         <div class="input-group mb-3 offset-md-3">
 						<input type="text" id="number-builds" class="form-control" aria-label="Text input with dropdown button">
 						<button tabindex="0" data-placement="top" class="batata2" role="button"
-								data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-								data-content="And here's some amazing content. It's very engaging. Right?">?
+								data-toggle="popover" data-trigger="focus" title="Dica"
+								data-content="O número máximo de builds que podem ter realizadas em um período de tempo.">?
 						</button>
 						</div>
-						<label class="offset-md-3">Time Period</label>
+						<label class="offset-md-3">Período de Tempo</label>
                         <div class="input-group mb-3 offset-md-3">
 							<select name="selectDuration" id="time-period" class="btn btn-outline-secondary dropdown-toggle"
 									value="">
@@ -307,8 +310,10 @@
                         <label><input type="checkbox" id="disable-builds">
                     Desabilitar builds</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Algumas vezes, você pode querer parar temporáriamente de construir um projeto. Por exemplo, talvez você está no meio de uma grande migração e você sabe que as novas construções vão falhar. Ou talvez um projeto é construído de hora em hora mas você sabe que o servidor de CVS ficará desligado pelas próximas 24 horas.
+
+Quando esta opção for informada, nenhuma nova construção é feita neste projeto. Isto permite que você desabilite as novas construções sem mudar qualquer uma da cadeia de dependência da construção ou mudar a configuração de notificação.">?
                     </button>
                     </div>
 
@@ -318,8 +323,8 @@
                         <label><input type="checkbox" id="parallel-builds">
                     Execute os builds em paralelo se necessário</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Permite que quando mais de uma build for iniciada ao mesmo tempo, não é necessário esperar uma acabar para começar a outra, ambas podem ocorrer ao mesmo tempo.">?
                     </button>
                     </div>
 
@@ -330,8 +335,8 @@
                         <label><input type="checkbox" id="number-tries-chk" onchange="showById('CloneAttempts')">
                     Número de tentativas para clonar o código</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Quantidade de tentativas para clonar o código do repositório">?
                     </button>
                     </div>
 
@@ -339,10 +344,6 @@
                         <label class="offset-md-3">Número de tentativas</label>
                         <div class="input-group mb-3 offset-md-3">
                             <input type="number" id="number-tries" name="quantity2" class="form-control" min="1" placeholder="1">
-                            <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                    data-content="And here's some amazing content. It's very engaging. Right?">?
-                            </button>
                         </div>
                     </div>
 
@@ -351,10 +352,6 @@
 
                         <label><input type="checkbox" id="keep-logs">
                     Manter os logs de construção das dependências</label>
-                    <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
-                    </button>
                     </div>
 
                     <a href="#repository" aria-controls="repository" role="tab"
@@ -369,14 +366,14 @@
                         <label><input type="radio" id="reposiroty-type-git" name="reposirotyType" value="git" onchange="showGitOpt()" checked>
                             GIT</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Selecionar caso o código esteja versionado em um repositório GIT.">?
                     </button>
 
                     <label><input type="radio" id="reposiroty-type-svn" name="reposirotyType" value="svn" onchange="showGitOpt()"> SVN</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Selecionar caso o código esteja versionado em um repositório SVN.">?
                     </button>
 
                     <div>
@@ -388,8 +385,8 @@
                         <input type="text" id="username" class="form-control" placeholder="Username" aria-label="Username"
                                aria-describedby="basic-addon1">
                         <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                                data-toggle="popover" data-trigger="focus" title="Dica"
+                                data-content="Usuário de acesso ao repositório">?
                         </button>
                     </div>
                     <label class="offset-md-3">Senha</label>
@@ -397,8 +394,8 @@
                         <input type="password" id="password" class="form-control" aria-label="password"
                                aria-describedby="basic-addon1">
                         <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                                data-toggle="popover" data-trigger="focus" title="Dica"
+                                data-content="Senha de acesso ao repositório">?
                         </button>
                     </div>
                     <label class="offset-md-3">URL</label>
@@ -407,8 +404,8 @@
                         </div>
                         <input type="text" id="reposiroty-address" class="form-control" id="basic-url" aria-describedby="basic-addon3">
                         <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                                data-toggle="popover" data-trigger="focus" title="Dica"
+                                data-content="Especifique a URL deste repositório remoto. Isso usa a mesma sintaxe do seu comando git clone.">?
                         </button>
                     </div>
 
@@ -416,8 +413,8 @@
                     <div class="input-group mb-3 offset-md-3">
                         <input type="text" id="reposiroty-branch" class="form-control" aria-describedby="basic-addon3">
                         <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                                data-toggle="popover" data-trigger="focus" title="Dica"
+                                data-content="Especifique a Branch que será clonada do seu repositório.">?
                         </button>
                     </div>
 
@@ -427,8 +424,8 @@
 
                         <label> <input type="checkbox" id="push-commit"> Dispare builds remotamente quando commits forem executados</label>
                         <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                                data-content="And here's some amazing content. It's very engaging. Right?">?
+                                data-toggle="popover" data-trigger="focus" title="Dica"
+                                data-content="Faz com que os commits feitos em sua branch disparem automaticamente as builds. (É necessário especificar a branch)">?
                         </button>
                     </div>
 
@@ -436,7 +433,7 @@
                         <div class="input-group mb-3 offset-md-3">
                             <input type="text" id="reposiroty-authentication" class="form-control" aria-describedby="basic-addon3">
                             <button tabindex="0" data-placement="top" class="batata2" role="button"
-                                    data-toggle="popover" data-trigger="focus" title="Dismissible popover"
+                                    data-toggle="popover" data-trigger="focus" title="Dica"
                                     data-content="Use a seguinte URL para iniciar um build remoto:
                             JENKINS_URL/job/job/build?token=TOKEN_NAME ou /buildWithParameters?token=TOKEN_NAME
                             Opcionalmente anexe &cause=Cause+Text para fornecer o texto que será incluído no build
@@ -465,8 +462,8 @@
 
                     <label> <input type="checkbox" id="chk-quality" onchange="showById('qualityScript')"> Executar Quality Check</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Marque para inserir um script para validar a qualidade do seu código.">?
                     </button>
 
 
@@ -487,8 +484,8 @@
 
                     <label><input type="checkbox" id="chk-test" onchange="showById('testScript')"> Executar Testes</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Marque para inserir um script para executar a rotina de testes do seu projeto.">?
                     </button>
 
 
@@ -509,8 +506,8 @@
 
                     <label><input type="checkbox" id="chk-package" onchange="showById('packageScript')"> Executar Package</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Marque para inserir um script para executar o empacotamento do seu projeto.">?
                     </button>
 
 
@@ -532,8 +529,8 @@
 
                     <label> <input type="checkbox" id="chk-deploy" onchange="showById('deployScript')"> Executar Build</label>
                     <button tabindex="0" data-placement="top" class="batata2" role="button"
-                            data-toggle="popover" data-trigger="focus" title="Dismissible popover"
-                            data-content="And here's some amazing content. It's very engaging. Right?">?
+                            data-toggle="popover" data-trigger="focus" title="Dica"
+                            data-content="Marque para inserir um script para executar o build do seu projeto.">?
                     </button>
 
 
