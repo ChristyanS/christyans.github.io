@@ -19,9 +19,9 @@ ferramentas disponiveis para os participantes.
 Artefato  |Características
 --- | ---
 Código Java     | Código simples de uma calculadora contendo as 4 operações básicas (soma, subtração ,multiplicação, divisão). Para ser utilizado como base do fluxo de CICD
-Jnuit | Tests unitários que cobrem os 100% das operações da calculadora
+JUnit | Tests unitários que cobrem os 100% das operações da calculadora
 GitHub    | Repositório público que será utilizado para pegar os códigos do experimento https://github.com/ChristyanS/experimento-jenkins
-SonarQuebe  | Plataforma open-source para inspeção contínua de qualidade de código. disponível em: http://localhost:9000/projects
+SonarQube  | Plataforma open-source para inspeção contínua de qualidade de código. disponível em: http://localhost:9000/projects
 SMB | Servidor de compartilhamento de arquivos, onde o deploy será realizado.
 Jenkins | Servidor de automação para criação de uma pipeline de CICD. disponível em: http://localhost:8080
 
